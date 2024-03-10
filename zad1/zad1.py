@@ -1,6 +1,13 @@
 from zad1testy import Node, runtests
 
-#
+# Algorytm sortuje listę k-chaotyczną wykorzystując dwa różne sortowania zależnie od wartości k:
+# dla k<=5  ->  Sortowanie bąbelkowe
+# dla k>5   ->  Sortowanie przez scalanie
+# Złożoność czasową dla :
+# k = Θ(1)      ->  O = n
+# k = Θ(log n)  ->  O = nlogn
+# k = Θ(n)      ->  O = nlogn
+#chyba
 
 def dlugosc_listy(p):
     sum=0
@@ -18,14 +25,9 @@ def bubble(p,k):
         p=g.next
         while p.next!=None:
             if p.val>p.next.val:
-                q=p.next
-                p.next=q.next
-                q.next=p
-                g.next=q
-                g=g.next
+                p.val,p.next.val,p,g=p.next.val,p.val,p.next,g.next
             else:
-                p=p.next
-                g=g.next
+                p,g=p.next,g.next
     return(start.next)
 
 def merge(p,l):
