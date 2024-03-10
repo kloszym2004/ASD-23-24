@@ -23,7 +23,6 @@ def bubble(p,k):
                 q.next=p
                 g.next=q
                 g=g.next
-                sort = False
             else:
                 p=p.next
                 g=g.next
@@ -32,15 +31,14 @@ def bubble(p,k):
 def merge(p,l):
     q=p
     r=p.next
-    dump=None
     if l>2:
         for _ in range (0,((l-1)//2)-1,1):
             r=r.next
         tmp=r
         r=r.next
         tmp.next = None
-        q,dump=merge(q,((l-1)//2)+1)
-        r,dump=merge(r,l-((l-1)//2)-1)
+        q=merge(q,((l-1)//2)+1)
+        r=merge(r,l-((l-1)//2)-1)
     elif l==2:
         q.next=None
     gs=Node()
@@ -56,33 +54,12 @@ def merge(p,l):
             gk=gk.next
     if q==None:gk.next=r
     else:gk.next=q
-    while gk.next!=None:
-        gk=gk.next
-    return(gs.next,gk)
+    return(gs.next)
 
 def SortH(p,k):
     if k>5:
-        if k==dlugosc_listy(p):k-=1
-        q=Node()
-        start=q
-        r=p
-        q.next=r
-        s=p.next.next.next
-        t=p.next.next.next.next
-        for _ in range(k-3):
-            s=s.next
-            t=t.next
-        while t!=None:
-            q.next=None
-            s.next=None
-            r,s=merge(r,k+1)
-            q.next=r
-            s.next=t
-            q,r,s,t=q.next,r.next,s.next,t.next
-        r,s=merge(r,k+1)
-        q.next=r
-        s.next=t
-        p=start.next
+        l=dlugosc_listy(p)
+        p=merge(p,l)
     else:
         p=bubble(p,k)
     return(p)
